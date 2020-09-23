@@ -18,7 +18,12 @@ class App extends Component {
     await fetch(`https://dog.ceo/api/breed/${name}/images`)
       .then((res) => res.json())
       .then((data) => {
-        this.setState({ dogs: data.message.slice(0, this.state.items) })
+        if (data.code !== 404) {
+          this.setState({ dogs: data.message.slice(0, this.state.items) })
+        }
+        else {
+          alert('해당 견종이 없습니다.');
+        }
       })
   }
   getDogNames = async () => {
@@ -96,6 +101,5 @@ class App extends Component {
     )
   }
 }
-
 
 export default App;
